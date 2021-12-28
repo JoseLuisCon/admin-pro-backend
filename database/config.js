@@ -7,10 +7,12 @@ const dbConnection = async () => {
 
     try {
         await mongoose.connect(process.env.DB_CONNECT,
+     
             {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
-                         });
+            });
+
         console.log('Base de datos Online');
     } catch (error) {
         console.log(error);
