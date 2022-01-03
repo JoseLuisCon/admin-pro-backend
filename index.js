@@ -20,6 +20,10 @@ dbConnection();
 //Rutas
 app.use( '/api/usuarios', require('./routes/usuarios'))
 app.use( '/api/login', require('./routes/auth'))
+app.use( '/api/hospitales', require('./routes/hospital'))
+app.use( '/api/medicos', require('./routes/medico'))
+app.use( '/api/todo', require('./routes/busquedas'))
+
 
 
 
