@@ -42,9 +42,63 @@ const busquedaTotal = async (req, res = response) => {
 
 }
 
+const busquedaPorColeccion = async (req, res = response) => {
+    
+    const param  = req.params.param;
+    const coleccion  = req.params.tabla;
+    const regex = new RegExp( param,'i') 
+    let data = [];
+
+
+    
+    try {
+        
+        switch (coleccion) {
+            case 'medicos':
+                data = await Medico.find({nombre: regex})
+                                        .populate('usuario', 'nombre img')
+                                        .populate('hospital', 'nombre img');
+                break;
+            case 'hospitales':
+                data = await Hospital.find({nombre: regex})
+                                        .populate('usuario', 'nombre img');
+              
+                break;
+            case 'usuarios':
+                data = await Usuario.find({nombre: regex});
+                
+                break;
+        
+            default:
+
+                return res.status(400).json({
+                    ok: false,
+                    msg: 'La coleccion tiene que ser usuarios/medicos/hospitales'
+                })
+                
+                
+            }        
+            
+            res.status(200).json({
+                ok: true,
+                data
+            })
+            
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok:false,
+            msg: 'Hable con el administrador'
+        })
+    }
+   
+}
+
 
 module.exports = {
-    busquedaTotal
+    busquedaTotal,
+    busquedaPorColeccion
 }
 
 
