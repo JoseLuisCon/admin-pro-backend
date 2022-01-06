@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- AUTENTICACIÓN CON GOOGLE -->
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="1087637155709-3aqk7cu8mjecrq1887li04fumtu57na2.apps.googleusercontent.com">
+    <!-- FIN AUTENTICACIÓN -->
+    
+    <title>Demon Login</title>
+</head>
+
+<body>
+    <h1>Google Sign-in</h1>
+    <br>
+    <br>
+    
+    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+    
+    <div>
+        <a href="#" onclick="signOut();">Sign out</a>
+    </div>
+    
+    
+    <!-- SCRIPT PARA AUTENTICACIÓN CON GOOGLE -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script>
+        function onSignIn(googleUser) {
+            // Useful data for your client-side scripts:
+            var profile = googleUser.getBasicProfile();
+            console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+            console.log('Full Name: ' + profile.getName());
+            console.log('Given Name: ' + profile.getGivenName());
+            console.log('Family Name: ' + profile.getFamilyName());
+            console.log("Image URL: " + profile.getImageUrl());
+            console.log("Email: " + profile.getEmail());
+            
+            // The ID token you need to pass to your backend:
+            var id_token = googleUser.getAuthResponse().id_token;
+            console.log("ID Token: " + id_token);
+
+            
+        }
+        
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+            });
+        }
+    </script>
+</body>
+
+</html>
